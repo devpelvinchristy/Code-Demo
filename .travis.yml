@@ -1,2 +1,18 @@
 language: node_js
 os: osx
+
+ "scripts": {
+    "start": "node index.js",
+    "start-watch": "nodemon index.js",
+    "dev": "concurrently \"yarn run start-watch\" \"cd client && yarn start\"",
+    "heroku-postbuild": "cd client && yarn --production=false && yarn run build",
+    "test": "mocha"
+  },
+
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITTOKEN
+  on:
+    branch: master
